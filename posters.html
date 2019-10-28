@@ -20,6 +20,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript">
+//  Carga json
   function getJSONVideos(){
     $.getJSON('data/video.json', function(data) {
   			    jsonVideos = data.video;
@@ -27,9 +28,9 @@
   			    printSeries(jsonVideos.series);
   			  });
   			}
-
-  function printFilms(){
-    $('#list-films.').html("<h2>Posters Pelisculas</h2>");
+// muestra peliculas //
+  function printFilms(listFilms){
+    $('#list-films').html("<h2>Posters Películas</h2>");
     $.each( listFilms, function( key, val){
 			      let oFilm = val;
             let Card = `<div class="card">
@@ -47,8 +48,46 @@
                 <p class="card-text">${oFilm.stars}</p>
               </div>
             </div>`
-  });
-}
+
+            $('#list-films').append(Card);
+			    });
+			}
+
+
+    // Mostra les series (fa servir només javascript)
+			function printSeries(listSeries){
+					document.querySelector("#list-series").innerHTML="<h1>Sèries disponibles</h1>";
+					listSeries.forEach(function(element){
+						let oSerie = element;
+						console.log("info serie:"+oSerie.id + " "+ oSerie.name);
+						let card = `<div>
+													<hr/>
+													<h5 class="card-title">${oSerie.name}</h5>
+													<p class="card-text">${oSerie.genre}</p>
+                          <p class="card-text">${oSerie.director}</p>
+                          <p class="card-text">${oSerie.seasons}</p>
+                          <p class="card-text">${oSerie.price}</p>
+                          <p class="card-text">${oSerie.sinopsis}</p>
+											 </div>
+                       <div class="card-footer">
+                         <h5>Interpretes<h5>
+                         <p class="card-text">${oSerie.stars}</p>
+                       </div>
+											 `;
+						document.querySelector("#list-series").innerHTML+=card;
+					});
+			}
+
+
+
+			$(document).ready(function() {
+					getJSONVideos();
+
+			});
+
+
+
+
   </script>
 </head>
 <body>
@@ -76,7 +115,7 @@
       <div class="tab-pane container active" id="tabpelis">
         <div id="list-films">
           <div class="card-deck">
-            <div class="card">
+            <div class="Card">
               <img src="..." class="card-img-top" alt="...">
               <h4 class="card-tittle bg-primary">titulo<h4>
               <div class="card-body">
@@ -97,7 +136,7 @@
       <div class="tab-pane container fade" id="tabseries">
         <div id="list-series">
           <div class="card-deck">
-            <div class="card">
+            <div class="Card">
               <img src="..." class="card-img-top" alt="...">
               <h4 class="card-tittle bg-primary">titulo<h4>
               <div class="card-body">
