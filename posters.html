@@ -1,4 +1,6 @@
-<head>
+<!DOCTYPE html>
+<html>
+  <head>
   <title>Postermania</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -6,7 +8,7 @@
   <style media="screen">
         .grid-container {
           display: grid;
-          grid-template-columns: auto auto auto auto auto auto;
+          grid-template-columns: auto auto auto;
           padding: 10px;
         }
         .grid-item {
@@ -14,26 +16,24 @@
           padding: 20px;
           text-align: center;
         }
-
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript">
-//  Carga json
+  //  Carga json
   function getJSONVideos(){
     $.getJSON('data/video.json', function(data) {
-  			    jsonVideos = data.video;
-  			    printFilms(jsonVideos.films);
-  			    printSeries(jsonVideos.series);
-  			  });
-  			}
-// muestra peliculas //
+            jsonVideos = data.video;
+            printFilms(jsonVideos.films);
+            printSeries(jsonVideos.series);
+          });
+        }
+  // muestra peliculas //
   function printFilms(listFilms){
-    $('#list-films').html("<h2>Posters Películas</h2>");
-    $.each( listFilms, function( key, val){
-			      let oFilm = val;
-            let Card = `<div class="card">
+      $.each( listFilms, function( key, val){
+            let oFilm = val;
+            let card = `<div>
               <img src="..." class="card-img-top" alt="...">
               <h4 class="card-tittle bg-primary">${oFilm.name}<h4>
               <div class="card-body">
@@ -48,118 +48,77 @@
                 <p class="card-text">${oFilm.stars}</p>
               </div>
             </div>`
-
-            $('#list-films').append(Card);
-			    });
-			}
-
-
+            $('#list-films').append(card);
+          });
+      }
     // Mostra les series (fa servir només javascript)
-			function printSeries(listSeries){
-					document.querySelector("#list-series").innerHTML="<h1>Sèries disponibles</h1>";
-					listSeries.forEach(function(element){
-						let oSerie = element;
-						console.log("info serie:"+oSerie.id + " "+ oSerie.name);
-						let card = `<div>
-													<hr/>
-													<h5 class="card-title">${oSerie.name}</h5>
-													<p class="card-text">${oSerie.genre}</p>
-                          <p class="card-text">${oSerie.director}</p>
-                          <p class="card-text">${oSerie.seasons}</p>
-                          <p class="card-text">${oSerie.price}</p>
-                          <p class="card-text">${oSerie.sinopsis}</p>
-											 </div>
-                       <div class="card-footer">
-                         <h5>Interpretes<h5>
-                         <p class="card-text">${oSerie.stars}</p>
-                       </div>
-											 `;
-						document.querySelector("#list-series").innerHTML+=card;
-					});
-			}
+      function printSeries(listSeries){
 
-
-
-			$(document).ready(function() {
-					getJSONVideos();
-
-			});
-
-
-
-
+          listSeries.forEach(function(element){
+            let oSerie = element;
+            console.log("info serie:"+ oSerie.id + " "+ oSerie.name);
+            let card = `<div>
+                          <img src="..." class="card-img-top" alt="...">
+                          <h4 class="card-tittle bg-primary">${oSerie.name}<h4>
+                          <div class="card-body">
+                            <p class="card-text">${oSerie.genre}</p>
+                            <p class="card-text">${oSerie.director}</p>
+                            <p class="card-text">${oSerie.seasons}</p>
+                            <p class="card-text">${oSerie.price}</p>
+                            <p class="card-text">${oSerie.sinopsis}</p>
+                           </div>
+                           <div class="card-footer">
+                             <h5>Interpretes<h5>
+                             <p class="card-text">${oSerie.stars}</p>
+                           </div>
+                        </div>
+                       `;
+            document.querySelector("#list-series").innerHTML+=card;
+          });
+      }
+      $(document).ready(function() {
+          getJSONVideos();
+      });
   </script>
-</head>
-<body>
-  <header>
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1>Postermania</h1>
-        <p>Posters de tus peículas y series favoritas</p>
-      </div>
-    </div>
-  </header>
-  <!-- tab-pannel -->
-  <div>
-    <!-- tab nav -->
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#tabpelis">pelis</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#tabseries">series</a>
-      </li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <div class="tab-pane container active" id="tabpelis">
-        <div id="list-films">
-          <div class="card-deck">
-            <div class="Card">
-              <img src="..." class="card-img-top" alt="...">
-              <h4 class="card-tittle bg-primary">titulo<h4>
-              <div class="card-body">
-                <p class="card-text">genero</p>
-                <p class="card-text">director</p>
-                <p class="card-text">duracion</p>
-                <p class="card-text">precio</p>
-                <p class="card-text">sinopsis</p>
-              </div>
-              <div class="card-footer">
-                <h5>Interpretes<h5>
-                <p class="card-text">interprete</p>
-              </div>
-            </div>
+  </head>
+  <body>
+
+  <div class="container">
+      <header>
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1>Postermania</h1>
+            <p>Posters de tus peículas y series favoritas</p>
           </div>
         </div>
-      </div>
-      <div class="tab-pane container fade" id="tabseries">
-        <div id="list-series">
-          <div class="card-deck">
-            <div class="Card">
-              <img src="..." class="card-img-top" alt="...">
-              <h4 class="card-tittle bg-primary">titulo<h4>
-              <div class="card-body">
-                <p class="card-text">genero</p>
-                <p class="card-text">director</p>
-                <p class="card-text">temporadas</p>
-                <p class="card-text">genero</p>
-                <p class="card-text">sinopsis</p>
-              </div>
-              <div class="card-footer">
-                <h5>Interpretes<h5>
-                <p class="card-text">interprete</p>
-              </div>
-            </div>
+      </header>
+      <!-- tab nav -->
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#tabpelis">pelis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#tabseries">series</a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane container active" id="tabpelis">
+          <h4>PELICULAS</h4>
+          <div id="list-films" class="grid-container">
+          </div>
+        </div>
+        <div class="tab-pane container fade" id="tabseries">
+          <h4>SERIES</h4>
+          <div id="list-series" class="grid-container">
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
 
 
 
-</body>
+  </body>
 </html>

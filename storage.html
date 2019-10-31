@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      .container{
+        border:1px solid #ccc;
+        height: 100px;
+        background-color: #eee;
+        margin-top:2%;
+      }
+    </style>
+    <script type="text/javascript">
+      function saveTitleInStorage(){
+        let txtTitle = document.getElementById('title-game').value;
+        localStorage.setItem("titleGame", txtTitle);
+        document.getElementById("container-game").innerHTML = localStorage.getItem("titleGame");
+      }
+
+      function saveUserInStorage(){
+        if (typeof(Storage) == "undefined"){
+          alert("localStorage no soportat");
+        } else {
+          let userObj = {"name":document.getElementById('user-name').value,
+                			"surname":document.getElementById('user-surname').value,
+                			"mobile":document.getElementById('user-mobile').value};
+          localStorage.setItem("user", JSON.stringify(userObj));
+        }
+      }
+
+      function getUserFromStorage(){
+        let userObjStorage = JSON.parse(localStorage.getItem("user"));
+        console.log(userObjStorage);
+        document.getElementById('container-user').innerHTML = userObjStorage.name + " " +
+                                                              userObjStorage.surname + " " +
+                                                              userObjStorage.mobile;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <input type="text" id="title-game" name="txt-title-game" value="">Game</input>
+        <input type="button" name="Desa dades" value="Desa dades" onclick="saveTitleInStorage()"/>
+
+        <div>
+          <label>Dades al storage:</label>
+          <p id="container-game"></p>
+        </div>
+      </form>
+    </div>
+    <div class="container">
+      <form>
+        <label>Nom:</label>
+        <input type="text" id="user-name" name="user-name" value=""></input>
+        <label>Cognom:</label>
+        <input type="text" id="user-surname" name="user-surname" value=""></input>
+        <label>Telefon:</label>
+        <input type="text" id="user-mobile" name="user-mobile" value=""></input>
+        <button type="button" name="button" onclick="saveUserInStorage()">Desa dades usuari</button>
+      </form>
+    </div>
+
+    <div class="container">
+      <button type="button" name="button" onclick="getUserFromStorage()">Recupera dades usuari</button>
+      <p id="container-user"></p>
+    </div>
+
+    <p><a href="storage_remove.html">Segona Pagina</a></p>
+  </body>
+</html>

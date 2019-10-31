@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <div>
+      <h1>Dades usuari</h1>
+      <div id="user-data"></div>
+    </div>
+    <input type="button" id="btn-delete" name="esborrar" value="Esborrar dades del storage">
+
+    <p>
+      <a href="storage.html">Torna</a>
+    </p>
+
+    <script type="text/javascript">
+      console.log("Game:" + localStorage.titleGame);
+
+      let item = localStorage.getItem("user");
+      if (item){
+        let user = JSON.parse(item);
+        let container = document.getElementById("user-data");
+        container.innerHTML =`
+          <p>${user.name}</p>
+          <p>${user.surname}</p>
+          <p>${user.mobile}</p>
+        `;
+      }else {
+        document.getElementById("user-data").innerHTML="usuari no definit";
+      }
+
+      let btnDelete = document.getElementById("btn-delete");
+      btnDelete.addEventListener("click",
+        function(){
+          alert("Esborrar storage");
+          localStorage.removeItem("user");
+          location.reload();
+        });
+
+    </script>
+  </body>
+</html>
